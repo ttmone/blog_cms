@@ -26,11 +26,19 @@ class User(models.Model):
 
 class Comment(models.Model):
     title = models.CharField(max_length=140, verbose_name='コメントタイトル')
-    text = models.TextField(verbose_name='コメント本文')
     username = models.CharField(max_length=140, verbose_name='ニックネーム')
+    text = models.TextField(verbose_name='コメント本文')
 
     def __str__(self):
         return self.title
+
+
+class Image(models.Model):
+    name = models.CharField(max_length=140, verbose_name='ファイル名')
+    path = models.ImageField(upload_to='blogs', verbose_name='画像')
+
+    def __str__(self):
+        return self.name
 
 
 class Post(models.Model):
@@ -40,10 +48,11 @@ class Post(models.Model):
     published_at = models.DateTimeField(verbose_name='投稿日時')
     updated_at = models.DateTimeField(verbose_name='更新日時')
     category = models.ManyToManyField(Category, verbose_name='カテゴリ')
-    tag = models.ManyToManyField(Tag, verbose_name='タグ', null=True, blank=True)
+    tag = models.ManyToManyField(Tag, verbose_name='タグ')
     user = models.ForeignKey(User, verbose_name='執筆者', on_delete=models.PROTECT)
     comment = models.ForeignKey(Comment, verbose_name='コメント', on_delete=models.PROTECT, null=True, blank=True)
     published = models.BooleanField(verbose_name='公開する', default=False)
+    image = models.ForeignKey(Image, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return self.title
