@@ -8,7 +8,7 @@
 <h1>カテゴリ一覧</h1>
   {% for category in categories %}
     <ul>
-    <li>{{ category.name }}</li>
+      <li><a href="{% url 'blogs:post_list' pk=category.id%}">{{ category.name }}</a></li>
     </ul>
   {% endfor %}
 <p><a href="{% url 'blogs:post_list' %}">投稿一覧へ</a></p>
