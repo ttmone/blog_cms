@@ -8,6 +8,8 @@ from markdownx.settings import (
 )
 from markdown.extensions import Extension
 
+from ..models import Category, Tag
+
 register = template.Library()
 
 
@@ -34,3 +36,13 @@ def markdown_to_html_with_escape(text):
     extensions = MARKDOWNX_MARKDOWN_EXTENSIONS + [EscapeHtml()]
     html = markdown.markdown(text, extensions=extensions, extension_configs=MARKDOWNX_MARKDOWN_EXTENSION_CONFIGS)
     return mark_safe(html)
+
+
+@register.inclusion_tag('blogs/widget/category_links.html')
+def render_category_links():
+    return {'category_list': Category.objects.all()}
+
+
+@register.inclusion_tag('blogs/widget/tag_links.html')
+def render_tag_links():
+    return {'tag_list': Tag.objects.all()}

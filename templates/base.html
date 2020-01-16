@@ -1,3 +1,4 @@
+{% load app %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -13,7 +14,17 @@
 </head>
 <body>
   <div class="container">
-    {% block content %}{% endblock %}
+    <div class="row">
+      <div class="col-md-8">
+        {% block content %}{% endblock %}
+      </div>
+      <div class="col-md-4">
+        <h3>カテゴリ一覧</h3>
+        {% render_category_links %}
+        <h3>タグ一覧</h3>
+        {% render_tag_links %}
+      </div>
+    </div>
   </div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

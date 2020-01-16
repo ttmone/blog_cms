@@ -1,0 +1,5 @@
+<ul>
+  {% for category in category_list %}
+    <li><a href="{% url 'blogs:category' pk=category.id %}">{{ category }}</a></li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,5 @@
+<ul>
+  {% for tag in tag_list %}
+    <li><a href="{% url 'blogs:tag' pk=tag.id %}">{{ tag }}</a></li>
+  {% endfor %}
+</ul>
