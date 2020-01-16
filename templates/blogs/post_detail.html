@@ -1,12 +1,25 @@
+{% extends 'base.html' %}
 {% load app %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-  <h2>{{ post.title }}</h2>
+
+{% block title %}記事詳細{% endblock %}
+
+{% block content %}
+<h2>{{ post.title }}</h2>
+  カテゴリ:
+  {% for category in post.category.all %}
+    <a href="{% url 'blogs:category' pk=category.id %}">{{ category }}</a>
+  {% endfor %}<br>
+
+  タグ:
+  {% for tag in post.tag.all %}
+    <a href="{% url 'blogs:tag' pk=tag.id %}">{{ tag }}</a>
+  {% endfor %}<br>
+
+  投稿日時: {{ post.created_at }}<br>
+  更新日時: {{ post.updated_at }}<br>
+  執筆者: {{ post.user }}<br>
+  ステータス: {{ post.status }}<br>
+  <hr>
   {{ post.text | markdown_to_html }}
-</body>
-</html>
+  <a href="{% url 'blogs:index'%}">投稿一覧に戻る</a>
+{% endblock %}

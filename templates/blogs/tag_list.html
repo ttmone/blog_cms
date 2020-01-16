@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}カテゴリ一覧{% endblock %}
+{% block title %}タグ一覧{% endblock %}
 
 {% block content %}
 <h1>カテゴリ一覧</h1>
-  {% for category in category_list %}
+  {% for tag in tag_list %}
     <ul>
-      <li><a href="{% url 'blogs:category' pk=category.id%}">{{ category.name }}</a></li>
+      <li><a href="{% url 'blogs:tag' pk=tag.id%}">{{ tag.name }}</a></li>
     </ul>
   {% endfor %}
 <p><a href="{% url 'blogs:index' %}">投稿一覧へ</a></p>

@@ -1,27 +1,47 @@
-{#{% load app %}#}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>投稿一覧</title>
-</head>
-<body>
-  <h2>投稿一覧</h2>
-  {% for post in posts %}
-    <h2><a href="{% url 'blogs:post_detail' pk=post.id %}">{{ post.title }}</a></h2>
-{#    {{ post.text | markdown_to_html }}#}
-{#    <ul>#}
-{#      <!-- 記事本文（Markdown） -->#}
-{#      <li>{{ post.user }}</li>#}
-{#      <li><img src="{{ post.image.image_path }}"></li>#}
-{#      <li>{{ post.created_at }}</li>#}
-{#      <li>{{ post.updated_at }}</li>#}
-{#      <li>{{ post.status }}</li>#}
-{#      {% if post.thumbnail %}#}
-{#        <li><img src="{{ post.thumbnail.url }}"></li>#}
-{#      {% endif %}#}
-{#      </ul>#}
-  {% endfor %}
-  <p><a href="{% url 'blogs:category_list' %}">タグ一覧へ</a></p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}投稿一覧{% endblock %}
+
+{% block content %}
+
+  {% if category and tag %}
+    <h2>カテゴリ「{{ category }}」に含まれ、タグ「{{ tag }}」を含む記事一覧</h2>
+
+    {% elif category %}
+      <h2>カテゴリ「{{ category }}」に含まれる投稿一覧</h2>
+
+    {% elif tag %}
+      <h2>タグ「{{ tag }}」を含む投稿一覧</h2>
+
+    {% else %}
+      <h2>投稿一覧</h2>
+
+  {% endif %}
+
+<hr>
+
+{% for post in post_list %}
+
+  <h2><a href="{% url 'blogs:post_detail' pk=post.id %}">{{ post.title }}</a></h2>
+
+  カテゴリ:
+  {% for category in post.category.all %}
+    <a href="{% url 'blogs:category' pk=category.id %}">{{ category }}</a>
+  {% endfor %}<br>
+
+  タグ:
+  {% for tag in post.tag.all %}
+    <a href="{% url 'blogs:tag' pk=tag.id %}">{{ tag }}</a>
+  {% endfor %}<br>
+
+  投稿日時: {{ post.created_at }}<br>
+  更新日時: {{ post.updated_at }}<br>
+  執筆者: {{ post.user }}<br>
+  ステータス: {{ post.status }}<br>
+
+{% endfor %}
+<hr>
+<p><a href="{% url 'blogs:category_list' %}">カテゴリ一覧へ</a></p>
+<p><a href="{% url 'blogs:tag_list' %}">タグ一覧へ</a></p>
+
+{% endblock %}
