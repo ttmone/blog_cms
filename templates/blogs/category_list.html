@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>カテゴリ一覧</title>
+</head>
+<body>
+<h1>カテゴリ一覧</h1>
+  {% for category in categories %}
+    <ul>
+    <li>{{ category.name }}</li>
+    </ul>
+  {% endfor %}
+<p><a href="{% url 'blogs:post_list' %}">投稿一覧へ</a></p>
+</body>
+</html>

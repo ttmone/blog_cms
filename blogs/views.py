@@ -1,10 +1,22 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 
-from .models import Post
+from .models import Post, Category
 
 
-# Create your views here.
-def index(request):
-    posts = Post.objects.all()
-    return render(request, 'post_list.html', {'posts': posts})
+class PostListView(ListView):
+    model = Post
+    context_object_name = 'posts'
 
+
+class PostDetail(DetailView):
+    model = Post
+
+
+class CategoryListView(ListView):
+    model = Category
+    context_object_name = 'categories'
+
+
+# class CategoryPostListView(ListView):
+#     model = Post

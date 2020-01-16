@@ -1,0 +1,27 @@
+{#{% load app %}#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>投稿一覧</title>
+</head>
+<body>
+  <h2>投稿一覧</h2>
+  {% for post in posts %}
+    <h2><a href="{% url 'blogs:post_detail' pk=post.id %}">{{ post.title }}</a></h2>
+{#    {{ post.text | markdown_to_html }}#}
+{#    <ul>#}
+{#      <!-- 記事本文（Markdown） -->#}
+{#      <li>{{ post.user }}</li>#}
+{#      <li><img src="{{ post.image.image_path }}"></li>#}
+{#      <li>{{ post.created_at }}</li>#}
+{#      <li>{{ post.updated_at }}</li>#}
+{#      <li>{{ post.status }}</li>#}
+{#      {% if post.thumbnail %}#}
+{#        <li><img src="{{ post.thumbnail.url }}"></li>#}
+{#      {% endif %}#}
+{#      </ul>#}
+  {% endfor %}
+  <p><a href="{% url 'blogs:category_list' %}">タグ一覧へ</a></p>
+</body>
+</html>
